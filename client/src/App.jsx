@@ -3,7 +3,7 @@ import Experts from "./pages/Experts";
 import ExpertDetail from "./pages/ExpertDetail";
 import Booking from "./pages/Booking";
 import MyBookings from "./pages/MyBookings";
-import Navbar from "./components/navbar";
+import Navbar from "./components/Navbar";
 import { Toaster } from "react-hot-toast";
 
 function App() {
