@@ -43,3 +43,24 @@ export const getExpertById = async (req, res) => {
     res.status(500).json({ message: "Server error" });
   }
 };
+
+export const createExpert = async (req, res) => {
+  try {
+    const { name, category, experience, rating, availableSlots } = req.body;
+
+    const expert = new Expert({
+      name,
+      category,
+      experience,
+      rating,
+      availableSlots,
+    });
+
+    await expert.save();
+
+    res.status(201).json(expert);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server error" });
+  }
+};

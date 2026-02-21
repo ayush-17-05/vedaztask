@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useParams, useLocation, useNavigate } from "react-router-dom";
 import { createBooking } from "../services/api";
+import toast from "react-hot-toast";
 
 const Booking = () => {
   const { id } = useParams();
@@ -67,11 +68,12 @@ const Booking = () => {
         notes: form.notes,
       });
 
-      alert("Booking successful 🎉");
-
-      navigate("/");
+      toast.success("Booking successful 🎉");
+      setTimeout(() => {
+        navigate("/");
+      }, 1500);
     } catch (err) {
-      setError(err.response?.data?.message || "Booking failed");
+      toast.error(err.response?.data?.message || "Booking failed");
     } finally {
       setLoading(false);
     }
@@ -80,7 +82,7 @@ const Booking = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="max-w-xl mx-auto px-4 py-10">
-        <div className="bg-white shadow-md rounded-xl p-6">
+        <div className="bg-white shadow-lg rounded-2xl p-8">
           <h1 className="text-2xl font-bold mb-6">Confirm Booking</h1>
 
           {/* Slot Summary */}
@@ -99,7 +101,7 @@ const Booking = () => {
             <input
               type="text"
               placeholder="Full Name"
-              className="w-full border rounded-lg px-4 py-2"
+              className="w-full border border-gray-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-blue-400 focus:outline-none"
               value={form.name}
               onChange={(e) => setForm({ ...form, name: e.target.value })}
             />
@@ -107,7 +109,7 @@ const Booking = () => {
             <input
               type="email"
               placeholder="Email"
-              className="w-full border rounded-lg px-4 py-2"
+              className="w-full border border-gray-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-blue-400 focus:outline-none"
               value={form.email}
               onChange={(e) => setForm({ ...form, email: e.target.value })}
             />
@@ -115,7 +117,7 @@ const Booking = () => {
             <input
               type="tel"
               placeholder="Phone"
-              className="w-full border rounded-lg px-4 py-2"
+              className="w-full border border-gray-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-blue-400 focus:outline-none"
               value={form.phone}
               onChange={(e) => setForm({ ...form, phone: e.target.value })}
             />
@@ -131,7 +133,7 @@ const Booking = () => {
             <button
               type="submit"
               disabled={loading}
-              className={`w-full bg-blue-500 hover:bg-blue-600 text-white py-3 rounded-lg ${
+              className={`w-full bg-gradient-to-r from-blue-500 to-blue-600 text-white py-3 rounded-xl hover:opacity-90 transition ${
                 loading && "opacity-50 cursor-not-allowed"
               }`}
             >
